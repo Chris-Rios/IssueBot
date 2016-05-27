@@ -10,8 +10,6 @@ const greetingResponses = require('./constants/greetings.js').greetingResponses;
 
 const botToken = config.slack.chatToken;
 
-console.log(botToken);
-
 const rtm = new rtmClient(botToken);
 
 rtm.start();
@@ -28,9 +26,13 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
 const handleMessage = (message, channel) => {
   message = message.toLowerCase();
-  if (greetingMessages.indexOf(message)) {
+  if (greetingMessages.indexOf(message) !== -1) {
     return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
   }
 
-  return message;
+  if(message === "-h") {
+    return `Here are a list of some commands`
+  }
+
+  return 'I don\'t understand your response, type -h for help';
 }
