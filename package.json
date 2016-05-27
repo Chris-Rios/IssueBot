@@ -1,0 +1,23 @@
+{
+  "name": "issuebot",
+  "version": "0.1.0",
+  "description": "Slack bot for isses in git",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chris-Rios/IssueBot.git"
+  },
+  "author": "Chris Rios",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chris-Rios/IssueBot/issues"
+  },
+  "homepage": "https://github.com/Chris-Rios/IssueBot#readme",
+  "dependencies": {
+    "@slack/client": "^2.3.0",
+    "octonode": "^0.7.5"
+  }
+}
