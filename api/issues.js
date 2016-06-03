@@ -4,12 +4,26 @@ const client = github.client();
 
 exports.getAllIssues = (user, repo) => {
   repo = repo.trim();
-  const ghRepo = client.repo(`${user}/${repo}`);
+  const ghsearch = client.search();
   return new Promise((resolve,reject) => {
     const issues = [];
-    ghRepo.issues((err, data, headers) => {
-      for(const issue of data){
-      issues.push(issue.title);
+    const request =
+      {
+        q:`repo:${user}/${repo}+type:issue`,
+        sort: 'created',
+        order: 'asc'
+      };
+    ghsearch.issues(request, (err, data, headers) => {
+      if(err) {
+        reject(err);
+      };
+      for (const issue of data.items) {
+      issues.push (
+        {
+          title: issue.title,
+          number: issue.number
+        }
+      );
     }
     resolve(issues);
     })
