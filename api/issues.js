@@ -14,18 +14,20 @@ exports.getAllIssues = (user, repo) => {
         order: 'asc'
       };
     ghsearch.issues(request, (err, data, headers) => {
-      if(err) {
-        reject(err);
-      };
-      for (const issue of data.items) {
-      issues.push (
-        {
-          title: issue.title,
-          number: issue.number
+        if(err) {
+          reject(err);
         }
-      );
-    }
-    resolve(issues);
-    })
+        else {
+          for (const issue of data.items) {
+          issues.push (
+            {
+              title: issue.title,
+              number: issue.number
+            }
+          );
+        }
+        resolve(issues);
+      }
+    });
   });
 }
