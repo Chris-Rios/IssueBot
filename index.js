@@ -42,6 +42,9 @@ const handleMessage = (message, channel) => {
 
   if (message.toLowerCase().startsWith("-allissues")) {
     message = message.split(" ");
+    if (message.length != 3) {
+      return("Im sorry you have the incorrect number of parameters, please try again or type type -h for help");
+    }
     
     issues.getAllIssues(message[1],message[2]).then((result) => {
         for(const issue of result) {
