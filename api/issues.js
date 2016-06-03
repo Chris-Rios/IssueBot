@@ -4,11 +4,17 @@ const client = github.client();
 
 exports.getAllIssues = (user, repo) => {
   const ghsearch = client.search();
+  const query = `repo:${user}/${repo}+type:issue`;
+  return _SearchIssues(query);
+}
+
+const _SearchIssues = (query) => {
+  const ghsearch = client.search();
   return new Promise((resolve,reject) => {
     const issues = [];
     const request =
       {
-        q:`repo:${user}/${repo}+type:issue`,
+        q: query,
         sort: 'created',
         order: 'asc'
       };
