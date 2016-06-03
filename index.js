@@ -28,22 +28,23 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
 const handleMessage = (message, channel) => {
   message = message.toLowerCase();
+  let response = 'I don\'t understand your message, type -h for help';
+
   if (greetingMessages.indexOf(message) !== -1) {
     return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
   }
 
   if (message === '-h') {
-    let message = `>>>Here are a list of some commands:`
+    response = `>>>Here is a list of some commands:`
     for (const command of commands) {
-      message = `${message}\n ${command}`;
+      response = `${response}\n ${command}`;
     }
-    return message
   }
 
   if (message.toLowerCase().startsWith("-allissues")) {
     message = message.split(" ");
     if (message.length != 3) {
-      return ('Im sorry you have the incorrect number of parameters, please try again or type type -h for help');
+      response = 'Im sorry you have the incorrect number of parameters, please try again or type type -h for help';
     }
 
     issues.getAllIssues(message[1],message[2]).then((result) => {
@@ -55,8 +56,7 @@ const handleMessage = (message, channel) => {
         rtm.sendMessage(`Sorry I was unable to get issues for you!`, channel);
       }
     );
-    return 'Sure Thing!';
+    response =  'Sure Thing!';
   }
-
-  return 'I don\'t understand your message, type -h for help';
+  return response;
 }
