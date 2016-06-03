@@ -3,7 +3,6 @@ const github = require('octonode');
 const client = github.client();
 
 exports.getAllIssues = (user, repo) => {
-  repo = repo.trim();
   const ghsearch = client.search();
   return new Promise((resolve,reject) => {
     const issues = [];

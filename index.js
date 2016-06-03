@@ -32,7 +32,7 @@ const handleMessage = (message, channel) => {
     return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
   }
 
-  if (message === "-h") {
+  if (message === '-h') {
     let message = `>>>Here are a list of some commands:`
     for (const command of commands) {
       message = `${message}\n ${command}`;
