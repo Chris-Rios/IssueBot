@@ -38,6 +38,6 @@ const _SearchIssues = (query) => {
 }
 
 exports.getIssuesWithStatus = (user, repo, status) => {
-  const query = `repo:${user}/${repo}+type:issue+state:status`
+  const query = `repo:${user}/${repo}+type:issue+status:${status}`
   return _SearchIssues(query)
 }
