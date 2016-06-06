@@ -4,7 +4,7 @@ const client = github.client();
 
 exports.getAllIssues = (user, repo) => {
   const ghsearch = client.search();
-  const query = `repo:${user}/${repo}+type:issue`;
+  const query = `state:open+repo:${user}/${repo}+type:issue`;
   return _SearchIssues(query);
 }
 
@@ -37,7 +37,7 @@ const _SearchIssues = (query) => {
   });
 }
 
-exports.getIssuesWithStatus = (user, repo, status) => {
-  const query = `repo:${user}/${repo}+type:issue+status:${status}`
+exports.getIssuesWithState = (user, repo, state) => {
+  const query = `repo:${user}/${repo}+type:issue+state:${state}`
   return _SearchIssues(query)
 }
