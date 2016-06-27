@@ -12,7 +12,6 @@ commands['-allissues'] = {
          resolve('Im sorry you have the incorrect number of parameters, please try again or type type -h for help')
        }
        else {
-         console.log("in the else");
          issues.getIssuesWithState(message[1],message[2],"")
           .then(
             result => {

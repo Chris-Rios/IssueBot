@@ -28,35 +28,39 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
 const handleMessage = (message, channel) => {
   message = message.toLowerCase();
+  const messageStart = message.split(" ")[0];
   let response = 'I don\'t understand your message, type -h for help';
 
-  if (greetingMessages.indexOf(message) !== -1) {
+  if (greetingMessages.indexOf(messageStart) !== -1) {
     return greetingResponses[Math.floor(Math.random() * greetingResponses.length)];
   }
 
-  if (message === '-h') {
+  if (messageStart === '-h') {
     response = `>>>Here is a list of some commands:`
-    for (const command of commands) {
-      response = `${response}\n ${command}`;
+    for (const command of Object.keys(commands)) {
+      response = `${response}\n ${commands[command].description}`;
     }
   }
 
-  if (message.toLowerCase().startsWith("-allissues")) {
-    message = message.split(" ");
-    if (message.length != 3) {
-      response = 'Im sorry you have the incorrect number of parameters, please try again or type type -h for help';
-    }
-
-    issues.getAllIssues(message[1],message[2]).then((result) => {
-        for(const issue of result) {
-          rtm.sendMessage(`> #${issue.number}-${issue.title}`,channel);
+  if (Object.keys(commands).indexOf(messageStart) != -1) {
+    const command = commands[messageStart];
+    command.handler(message).then(
+      results => {
+        if(results.length === 0) {
+          rtm.sendMessage("No results found!", channel);
+        }
+        for(const result in results){
+          rtm.sendMessage(`>#${result.number}-${result.title}`,channel);
         }
       },
       error => {
-        rtm.sendMessage(`Sorry I was unable to get issues for you!`, channel);
+        console.log('There has been an error' + error);
+        rtm.sendMessage(`Im sorry there has been an error with your request,
+          please try again and confirm your inputs are correct!`, channel);
       }
     );
-    response =  'Sure Thing!';
+    response = 'Sure Thing!';
   }
+
   return response;
 }
