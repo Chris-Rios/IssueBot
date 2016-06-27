@@ -13,7 +13,7 @@ commands['-allissues'] = {
        }
        else {
          console.log("in the else");
-         issues.getAllIssues(message[1],message[2])
+         issues.getIssuesWithState(message[1],message[2],"")
           .then(
             result => {
               resolve(result);
