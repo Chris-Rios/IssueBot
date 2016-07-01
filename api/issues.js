@@ -2,19 +2,19 @@
 const github = require('octonode');
 const client = github.client();
 
-exports.getAllIssues = (user, repo) => {
-  repo = repo.trim();
+const _SearchIssues = (query) => {
   const ghsearch = client.search();
   return new Promise((resolve,reject) => {
     const issues = [];
     const request =
       {
-        q:`repo:${user}/${repo}+type:issue`,
+        q: query,
         sort: 'created',
         order: 'asc'
       };
     ghsearch.issues(request, (err, data, headers) => {
         if(err) {
+          console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`);
           reject(err);
         }
         else {
@@ -30,4 +30,14 @@ exports.getAllIssues = (user, repo) => {
       }
     });
   });
+}
+
+exports.getIssuesWithFilter = (user, repo, filter) => {
+  const query = `repo:${user}/${repo}+type:issue+${filter}`
+  return _SearchIssues(query)
+}
+
+exports.getIssuesWithState = (user, repo, state) => {
+  const query = `repo:${user}/${repo}+type:issue+state:${state}`
+  return _SearchIssues(query)
 }
