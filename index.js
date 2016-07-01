@@ -27,6 +27,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
 
 const handleMessage = (message, channel) => {
+  console.log(message);
   message = message.toLowerCase();
   const messageStart = message.split(" ")[0];
   let response = 'I don\'t understand your message, type -h for help';
@@ -49,14 +50,18 @@ const handleMessage = (message, channel) => {
         if(results.length === 0) {
           rtm.sendMessage("No results found!", channel);
         }
+
         for(const result in results){
-          rtm.sendMessage(`>#${result.number}-${result.title}`,channel);
+          if(result >= 10) {
+            rtm.sendMessage(">*Currently I am only displaying the first 10 issues*");
+            break;
+          }
+          rtm.sendMessage(`>#${results[result].number}-${results[result].title}`,channel);
         }
       },
       error => {
         console.log('There has been an error' + error);
-        rtm.sendMessage(`Im sorry there has been an error with your request,
-          please try again and confirm your inputs are correct!`, channel);
+        rtm.sendMessage(`Im sorry there has been an error with your request: *${error}*`, channel);
       }
     );
     response = 'Sure Thing!';
