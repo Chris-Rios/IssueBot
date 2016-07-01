@@ -14,6 +14,7 @@ const _SearchIssues = (query) => {
       };
     ghsearch.issues(request, (err, data, headers) => {
         if(err) {
+          console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`);
           reject(err);
         }
         else {
@@ -29,6 +30,11 @@ const _SearchIssues = (query) => {
       }
     });
   });
+}
+
+exports.getIssuesWithFilter = (user, repo, filter) => {
+  const query = `repo:${user}/${repo}+type:issue+${filter}`
+  return _SearchIssues(query)
 }
 
 exports.getIssuesWithState = (user, repo, state) => {
