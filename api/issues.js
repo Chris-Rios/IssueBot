@@ -12,14 +12,13 @@ const _SearchIssues = (query) => {
         sort: 'created',
         order: 'asc'
       }
-      ghsearch.issues(request, (err, data, headers) => {
-        if(err) {
-          console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`)
-          reject(err)
-        }
-        else {
-          for (const issue of data.items) {
-          issues.push (
+    ghsearch.issues(request, (err, data, headers) => {
+      if (err) {
+        console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`)
+        reject(err)
+      } else {
+        for (const issue of data.items) {
+          issues.push(
             {
               title: issue.title,
               number: issue.number

@@ -8,9 +8,9 @@ commands['-allissues'] = {
   handler: (message) => {
     message = message.split(' ')
     return new Promise((resolve, reject) => {
-      if (message.length != 3) {
+      if (message.length !== 3) {
         reject('*Incorrect number of parameters, please try again or type type -h for help*')
-      }else {
+      } else {
         issues.getIssuesWithFilter(message[1], message[2], '')
           .then(
             result => {
@@ -29,9 +29,9 @@ commands['-openissues'] = {
   handler: (message) => {
     message = message.split(' ')
     return new Promise((resolve, reject) => {
-      if (message.length != 3) {
+      if (message.length !== 3) {
         reject('*Incorrect number of parameters, please try again or type type -h for help*')
-      }else {
+      } else {
         issues.getIssuesWithState(message[1], message[2], 'open')
           .then(
             result => {
@@ -50,9 +50,9 @@ commands['-closedissues'] = {
   handler: (message) => {
     message = message.split(' ')
     return new Promise((resolve, reject) => {
-      if (message.length != 3) {
+      if (message.length !== 3) {
         reject('Incorrect number of parameters, please try again or type type -h for help')
-      }else {
+      } else {
         issues.getIssuesWithState(message[1], message[2], 'closed')
           .then(
             result => {
