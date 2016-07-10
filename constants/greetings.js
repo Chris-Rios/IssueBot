@@ -1,5 +1,4 @@
-
- const greetingMessages = [
+const greetingMessages = [
   'hello',
   'hi',
   'hey',
@@ -7,7 +6,7 @@
   'yo'
 ]
 
- const greetingResponses = [
+const greetingResponses = [
   'hello :grinning:!',
   'how are you doing?',
   'yo',

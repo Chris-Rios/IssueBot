@@ -4,7 +4,7 @@ const client = github.client()
 
 const _SearchIssues = (query) => {
   const ghsearch = client.search()
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     const issues = []
     const request =
       {
@@ -12,7 +12,7 @@ const _SearchIssues = (query) => {
         sort: 'created',
         order: 'asc'
       }
-    ghsearch.issues(request, (err, data, headers) => {
+      ghsearch.issues(request, (err, data, headers) => {
         if(err) {
           console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`)
           reject(err)
@@ -24,7 +24,7 @@ const _SearchIssues = (query) => {
               title: issue.title,
               number: issue.number
             }
-          );
+          )
         }
         resolve(issues)
       }

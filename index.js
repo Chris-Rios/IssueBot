@@ -16,21 +16,17 @@ const rtm = new rtmClient(botToken)
 
 rtm.start()
 
+rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage (message) {
+  const response = handleMessage(message.text, message.channel)
 
-
-rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
-
- const response = handleMessage(message.text,message.channel)
-
- rtm.sendMessage(`${response}`, message.channel)
+  rtm.sendMessage(`${response}`, message.channel)
 })
-
 
 const handleMessage = (message, channel) => {
   console.log(message)
   message = message.toLowerCase()
-  const messageStart = message.split(" ")[0]
-  let response = 'I don\'t understand your message, type -h for help'
+  const messageStart = message.split(' ')[0]
+  let response = "I don't understand your message, type -h for help"
 
   if (greetingMessages.indexOf(messageStart) !== -1) {
     return greetingResponses[Math.floor(Math.random() * greetingResponses.length)]
@@ -47,16 +43,16 @@ const handleMessage = (message, channel) => {
     const command = commands[messageStart]
     command.handler(message).then(
       results => {
-        if(results.length === 0) {
-          rtm.sendMessage("No results found!", channel)
+        if (results.length === 0) {
+          rtm.sendMessage('No results found!', channel)
         }
 
-        for(const result in results){
-          if(result >= 10) {
-            rtm.sendMessage(">*Currently I am only displaying the first 10 issues*")
+        for (const result in results) {
+          if (result >= 10) {
+            rtm.sendMessage('>*Currently I am only displaying the first 10 issues*')
             break
           }
-          rtm.sendMessage(`>#${results[result].number}-${results[result].title}`,channel)
+          rtm.sendMessage(`>#${results[result].number}-${results[result].title}`, channel)
         }
       },
       error => {
