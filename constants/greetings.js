@@ -5,7 +5,7 @@
   'hey',
   'hi there',
   'yo'
-];
+]
 
  const greetingResponses = [
   'hello :grinning:!',
@@ -14,4 +14,4 @@
   ':smile:'
 ]
 
-module.exports = {greetingMessages, greetingResponses};
+module.exports = {greetingMessages, greetingResponses}

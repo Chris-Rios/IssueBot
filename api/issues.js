@@ -1,21 +1,21 @@
-'use strict';
-const github = require('octonode');
-const client = github.client();
+'use strict'
+const github = require('octonode')
+const client = github.client()
 
 const _SearchIssues = (query) => {
-  const ghsearch = client.search();
+  const ghsearch = client.search()
   return new Promise((resolve,reject) => {
-    const issues = [];
+    const issues = []
     const request =
       {
         q: query,
         sort: 'created',
         order: 'asc'
-      };
+      }
     ghsearch.issues(request, (err, data, headers) => {
         if(err) {
-          console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`);
-          reject(err);
+          console.log(`Error encountered: ${err.message} error code: ${err.statusCode}`)
+          reject(err)
         }
         else {
           for (const issue of data.items) {
@@ -26,10 +26,10 @@ const _SearchIssues = (query) => {
             }
           );
         }
-        resolve(issues);
+        resolve(issues)
       }
-    });
-  });
+    })
+  })
 }
 
 exports.getIssuesWithFilter = (user, repo, filter) => {
